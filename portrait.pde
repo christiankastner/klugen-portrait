@@ -1,11 +1,11 @@
 PImage portrait;
 
 ArrayList<Point> points = new ArrayList(); 
-float threshold = .1;
+float threshold = .25;
 
 void setup() {
   size(580, 625);
-  portrait = loadImage("portrait_technique_0014.png");
+  portrait = loadImage("portrait2.png");
   loadPixels();
   portrait.loadPixels();
   for (int i = 0; i < width; i++) {
@@ -25,10 +25,18 @@ void setup() {
     }
   }
   updatePixels();
+  for (int i = 0; i < points.size(); i++) {
+    for (int z = 0; z < i; z++) {
+      if (dist(points.get(i).getX(), points.get(i).getY(), points.get(z).getX(), points.get(z).getY()) < 70) {
+        color a = points.get(z).getColor();
+        color b = points.get(i).getColor();
+        stroke(a);
+        strokeWeight(.65);
+        line(points.get(i).getX(), points.get(i).getY(), points.get(z).getX(), points.get(z).getY());
+      }
+    }
+  }
 }
 
 void draw() {
-  for (int i = 0; i < points.size(); i++) {
-    points.get(i).show();
-  }
 }
